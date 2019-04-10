@@ -1,0 +1,12 @@
+{
+  "name": "apply-sofia-kindergarten",
+  "version": "0.0.1",
+  "description": "ApplySofiaKindergarten",
+  "main": "App.js",
+  "author": {
+    "name": "Petar Marinov"
+  },
+  "dependencies": {
+    "jsdom": "^14.0.0"
+  }
+}
