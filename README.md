@@ -1,5 +1,5 @@
 ﻿# ApplySofiaKindergarten
-Calculate chances when applying for a kindergarten in Sofia
+Calculate chances when applying for a kindergarten in Sofia by fetching data from Sofia Kindertens site (https://kg.sofia.bg/)
 
 ## Requirements 
 * Nodejs
