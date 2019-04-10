@@ -19,6 +19,6 @@ let myKid = new Kid('ППМ', 2017, 12, 'Възраждане');
 ```
 node App.js
 ```
-
+![Example Result](https://github.com/wildalmighty/ApplySofiaKindergarten/blob/master/ExampleResult.png)
 ## TODO
 * Populate the DB with kindergartens dynamically
