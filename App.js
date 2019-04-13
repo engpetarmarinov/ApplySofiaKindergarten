@@ -22,11 +22,14 @@ function print(obj, color) {
 }
 
 regionsService.CalcChances(myKidsRegion, myKid).then((chances) => {
-    chances.forEach((chance) => {
+    chances.sort((chanceOne, chanceSec) => {
+        return chanceOne.PercentChance < chanceSec.PercentChance ? 1 : -1;
+    }).forEach((chance) => {
         print('\n');
-        print('Available slots for  ' + chance.Garden.Name + ' - ' + chance.AvailableSlots);
-        print('There are total of  ' + chance.TotalCandidates + ' candidates.');
-        print('There are ' + chance.EqualPointsCandidates + ' candidates with ' + myKid.Points + ' points');
-        print(myKid.Id + ' has ' + chance.PercentChance + '% for ' + chance.Garden.Name, 32);
+        print('Available slots for ' + chance.Garden.Name + ' - ' + chance.AvailableSlots + '.');
+        print('There are total of ' + chance.TotalCandidates + ' candidates.');
+        print('There are ' + chance.AheadCandidates + ' candidates with more than ' + myKid.Points + '.');
+        print('There are ' + chance.EqualPointsCandidates + ' candidates with ' + myKid.Points + ' points.');
+        print(myKid.Id + ' has ' + chance.PercentChance + '% for ' + chance.Garden.Name + '.', 32);
     });
 });

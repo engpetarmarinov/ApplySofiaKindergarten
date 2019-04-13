@@ -82,7 +82,7 @@ class KindergartensService {
                                 });
                                 let percentChance = (availableSlots - numberOfCandidatesAhead) / numberOfCandidatesEqualPoints * 100;
 
-                                resolve(new Chance(garden, availableSlots, candidates.length, numberOfCandidatesEqualPoints, (Math.round(percentChance * 100) / 100)));
+                                resolve(new Chance(garden, availableSlots, candidates.length, numberOfCandidatesEqualPoints, numberOfCandidatesAhead, (Math.round(percentChance * 100) / 100)));
                             }
                         });
                     }).catch((err) => {
