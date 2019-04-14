@@ -41,7 +41,7 @@ regionsService.CalcChances(pamelaRegion, pamela).then((chances) => {
 });
 
 //Deo for 2017
-let deo2017 = new Kid('ДАE', 2017, 12, 'Възраждане', new Bonus(50, 1));
+let deo2017 = new Kid('ДАЯ', 2017, 12, 'Възраждане', new Bonus(50, 1));
 
 let deoRegion2017 = regionsService.GetRegionByName(deo2017.RegionName);
 
@@ -54,7 +54,7 @@ regionsService.CalcChances(deoRegion2017, deo2017).then((chances) => {
 });
 
 //Deo for 2018
-let deo2018 = new Kid('ДАE', 2018, 12, 'Възраждане', new Bonus(50, 1));
+let deo2018 = new Kid('ДАЯ', 2018, 12, 'Възраждане', new Bonus(50, 1));
 
 let deoRegion2018 = regionsService.GetRegionByName(deo2018.RegionName);
 

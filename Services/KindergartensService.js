@@ -20,6 +20,25 @@ function groupBy(collection, property) {
     return result;
 }
 
+function calculateChance(garden, availableSlots, kidPointsForGroup, candidates) {
+    let groupedCandidates = groupBy(candidates, 'Points');
+
+    let numberOfCandidatesEqualPoints = 0;
+    if (groupedCandidates[kidPointsForGroup]) {
+        numberOfCandidatesEqualPoints = groupedCandidates[kidPointsForGroup].length;
+    }
+
+    let numberOfCandidatesAhead = 0;
+    groupedCandidates.forEach((candidatesGroup, points) => {
+        if (kidPointsForGroup >= points) return;
+
+        numberOfCandidatesAhead += candidatesGroup.length;
+    });
+    let percentChance = (availableSlots - numberOfCandidatesAhead) / numberOfCandidatesEqualPoints * 100;
+
+    return new Chance(garden, availableSlots, candidates.length, numberOfCandidatesEqualPoints, numberOfCandidatesAhead, (Math.round(percentChance * 100) / 100), kidPointsForGroup);
+}
+
 class KindergartensService {
 
     GetKindergartensByRegion(region) {
@@ -57,8 +76,6 @@ class KindergartensService {
                                     return;
                                 }
 
-                                let availableSlots = availableSlotsMatch[0]
-
                                 //element is the title of the talbe
                                 let candidates = [];
                                 if (element.nextSibling && element.nextSibling.nodeName == 'TABLE') {
@@ -76,22 +93,7 @@ class KindergartensService {
                                     });
                                 }
 
-                                let groupedCandidates = groupBy(candidates, 'Points');
-
-                                let numberOfCandidatesEqualPoints = 0;
-                                if (groupedCandidates[kidPointsForGroup]) {
-                                    numberOfCandidatesEqualPoints = groupedCandidates[kidPointsForGroup].length;
-                                }
-
-                                let numberOfCandidatesAhead = 0;
-                                groupedCandidates.forEach((candidatesGroup, points) => {
-                                    if (kidPointsForGroup >= points) return;
-
-                                    numberOfCandidatesAhead += candidatesGroup.length;
-                                });
-                                let percentChance = (availableSlots - numberOfCandidatesAhead) / numberOfCandidatesEqualPoints * 100;
-
-                                resolve(new Chance(garden, availableSlots, candidates.length, numberOfCandidatesEqualPoints, numberOfCandidatesAhead, (Math.round(percentChance * 100) / 100), kidPointsForGroup));
+                                resolve(calculateChance(garden, availableSlotsMatch[0], kidPointsForGroup, candidates));                                
                             }
                         });
                     }).catch((err) => {
