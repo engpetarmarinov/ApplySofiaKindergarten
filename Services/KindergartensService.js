@@ -34,7 +34,9 @@ function calculateChance(garden, availableSlots, kidPointsForGroup, candidates) 
 
         numberOfCandidatesAhead += candidatesGroup.length;
     });
-    let percentChance = (availableSlots - numberOfCandidatesAhead) / numberOfCandidatesEqualPoints * 100;
+    let percentChance = (!numberOfCandidatesAhead && !numberOfCandidatesEqualPoints)
+        ? 100
+        : ((availableSlots - numberOfCandidatesAhead) / numberOfCandidatesEqualPoints * 100);
 
     return new Chance(garden, availableSlots, candidates.length, numberOfCandidatesEqualPoints, numberOfCandidatesAhead, (Math.round(percentChance * 100) / 100), kidPointsForGroup);
 }
@@ -50,6 +52,8 @@ class KindergartensService {
 
             let numberOtherGroups = 0;
 
+            let tableHeader = kid.SocialCriteria ? 'Списък чакащи по социални критерии за' : 'Списък чакащи по общи критерии за';
+
             garden.Groups.forEach(function (group) {
                 if (kid.Year == group.Year) {
 
@@ -64,8 +68,9 @@ class KindergartensService {
 
                         let dom = new JSDOM(content);
 
-                        dom.window.document.querySelectorAll('.page_title').forEach((element) => {
-                            if (element.innerHTML.startsWith('Списък чакащи по общи критерии за')) {
+                        dom.window.document.querySelectorAll('.page_title').forEach((element) => {                           
+
+                            if (element.innerHTML.startsWith(tableHeader)) {
 
                                 let freeSlotsRegex = /[0-9]+/;
 
